@@ -1,7 +1,7 @@
 ﻿using RoomBookingApp.Core.DataServices;
-using RoomBookingApp.Core.Domain;
 using RoomBookingApp.Core.Enums;
 using RoomBookingApp.Core.Models;
+using RoomBookingApp.Domain.BaseModels;
 
 namespace RoomBookingApp.Core.Processors
 {
@@ -27,7 +27,7 @@ namespace RoomBookingApp.Core.Processors
             if (availableRooms.Any())
             {
                 var room = availableRooms.First();
-                var roomBooking = CreateRoomBookingObject<RoomBooking>(bookingRequest);
+                var roomBooking = CreateRoomBookingObject<Domain.RoomBooking>(bookingRequest);
                 roomBooking.RoomId = room.Id;
                 _roomBookingService.Save(roomBooking);
 
