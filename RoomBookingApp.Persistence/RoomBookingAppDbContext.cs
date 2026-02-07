@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace RoomBookingApp.Persistence
 {
-    public class RoomServiceAppDbContext : DbContext
+    public class RoomBookingAppDbContext : DbContext
     {
-        public RoomServiceAppDbContext(DbContextOptions<RoomServiceAppDbContext> options) : base(options)
+        public RoomBookingAppDbContext(DbContextOptions<RoomBookingAppDbContext> options) : base(options)
         {
 
         }

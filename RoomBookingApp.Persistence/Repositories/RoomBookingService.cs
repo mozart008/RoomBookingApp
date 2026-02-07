@@ -5,14 +5,23 @@ namespace RoomBookingApp.Persistence.Repositories
 {
     public class RoomBookingService : IRoomBookingService
     {
-        IEnumerable<Room> IRoomBookingService.GetAvailableRooms(DateTime date)
+        private readonly RoomBookingAppDbContext _context;
+
+        public RoomBookingService(RoomBookingAppDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        void IRoomBookingService.Save(RoomBooking roomBooking)
+        public IEnumerable<Room> GetAvailableRooms(DateTime date)
         {
-            throw new NotImplementedException();
+            return _context.Rooms
+                .Where(r => r.RoomBookings.Any(rb => rb.Date == date) == false);
+        }
+
+        public void Save(RoomBooking roomBooking)
+        {
+            _context.Add(roomBooking);
+            _context.SaveChanges();
         }
     }
 }
