@@ -14,20 +14,20 @@ namespace RoomBookingApp.Core.Processors
             this._roomBookingService = roomBookingService;
         }
 
-        public RoomBookingResult BookRoom(RoomBookingRequest bookingRequest)
+        public RoomBookingResult BookRoom(RoomBookingRequest request)
         {
-            if (bookingRequest is null)
+            if (request is null)
             {
-                throw new ArgumentNullException(nameof(bookingRequest));
+                throw new ArgumentNullException(nameof(request));
             }
 
-            var availableRooms = _roomBookingService.GetAvailableRooms(bookingRequest.Date);
-            var result = CreateRoomBookingObject<RoomBookingResult>(bookingRequest);
+            var availableRooms = _roomBookingService.GetAvailableRooms(request.Date);
+            var result = CreateRoomBookingObject<RoomBookingResult>(request);
 
             if (availableRooms.Any())
             {
                 var room = availableRooms.First();
-                var roomBooking = CreateRoomBookingObject<Domain.RoomBooking>(bookingRequest);
+                var roomBooking = CreateRoomBookingObject<Domain.RoomBooking>(request);
                 roomBooking.RoomId = room.Id;
                 _roomBookingService.Save(roomBooking);
 
